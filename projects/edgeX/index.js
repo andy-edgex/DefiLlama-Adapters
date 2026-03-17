@@ -12,10 +12,16 @@ const CONFIG = {
   bsc: {
     owners: ['0x0520b0a951658db92b8a2dd9f146bb8223638740'],
     tokens: [ADDRESSES.bsc.USDT]
-  },
+  }
 }
 
 const tvl = async (api) => {
+  if (api.chain === 'edgex') {
+    const usdc = '0x98d2919b9a214e6fa5384ac81e6864ba686ad74c'.toLowerCase();
+    const supply = await api.call({ target: usdc, abi: 'erc20:totalSupply' });
+    api.add(ADDRESSES.ethereum.USDC, supply, { skipChain: true });
+    return api.getBalances();
+  }
   const { owners, tokens } = CONFIG[api.chain]
   return api.sumTokens({ owners, tokens })
 }
@@ -23,3 +29,4 @@ const tvl = async (api) => {
 Object.keys(CONFIG).forEach((chain) => {
   module.exports[chain] = { tvl }
 })
+module.exports.edgex = { tvl }

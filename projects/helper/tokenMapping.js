@@ -33,6 +33,9 @@ const transformTokens = {
   //   "0x065de42e28e42d90c2052a1b49e7f83806af0e1f": "0x123", // CRK token is mispriced
   //   [ADDRESSES.cronos.TUSD]: ADDRESSES.ethereum.TUSD,
   // },
+  edgex: {
+    "0x98d2919b9A214E6Fa5384AC81E6864bA686Ad74c": { coingeckoId: "usd-coin", decimals: 6 },
+  },
 }
 const ibcMappings = {
   // Sample Code
